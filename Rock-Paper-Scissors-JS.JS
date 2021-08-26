@@ -1,11 +1,22 @@
 //JavaScript file to run the Rock Paper Scissors(RPS) HTML page
 
+//Reference buttons existing in HTML file
+const buttonRock = document.querySelector('#btn-rock');
+const buttonPaper = document.querySelector('#btn-paper');
+const buttonScissors = document.querySelector('#btn-scissors');
+
+//Create Event Listeners for RPS Buttons
+buttonRock.addEventListener('click', () => {playRPS('rock',computerPlay())});
+buttonPaper.addEventListener('click', () => {playRPS('paper',computerPlay())});
+buttonScissors.addEventListener('click', () => {playRPS('scissors',computerPlay())});
+
+
+
 //Function to create random choice for the computer
 function computerPlay() {
     let randomNumber = Math.floor(Math.random()*3);
     let computerOptions = ['rock', 'paper', 'scissors'];
     return (computerOptions[randomNumber]);
-
 }
 
 //Function to determine the winner of a round of RPS
@@ -48,16 +59,16 @@ function playRPS(playerSelection, computerSelection){
         return 'Try again. Choose Rock, Paper, or Scissors'
     }
 
-   /* Logs variables for testing purposes
-    console.log('User Choice = ' + userChoice);
-    console.log('Computer Choice = ' + computerChoice);
-    console.log('Winner = ' + winner); */
+   //Logs variables for testing purposes
+    console.log('User Choice = ' + playerSelection);
+    console.log('Computer Choice = ' + computerSelection);
+    console.log('Winner = ' + winner); 
     if (winner === 'tie'){
         return 'Tie game.'
     } else if (winner == 'p1'){
-        return "Congrats, you win. " + userChoice + " beats " + computerChoice + "."
+        return "Congrats, you win. " + playerSelection + " beats " + computerSelection + "."
     }
-    return "You lose. " + computerChoice + " beats " + userChoice + "."
+    return "You lose. " + computerSelection + " beats " + playerSelection + "."
 }
 
 //Function that plays 5 rounds of RPS and determines the winner
@@ -69,14 +80,14 @@ function game(){
         let winner = rpsDecider(userChoice,computerChoice);
         if (winner === 'p1'){
             playerScore ++
-            console.log('Player wins round ' + i.toString())
+            console.log('Player wins round ' + i)
         } else if (winner === 'p2') {
             computerScore ++
-            console.log('Computer wins round ' + i.toString())
+            console.log('Computer wins round ' + i)
         } else {
-            console.log('Round ' + i.toString() + ' is a tie.')
+            console.log('Round ' + i + ' is a tie.')
         }
-        console.log('The score is: Player:' + playerScore.toString() + ' to Computer:' + computerScore.toString());
+        console.log('The score is: Player:' + playerScore+ ' to Computer:' + computerScore);
     }
     if (playerScore == computerScore) {
         return "It's a tie."
