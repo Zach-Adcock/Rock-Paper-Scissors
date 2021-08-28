@@ -10,7 +10,26 @@ buttonRock.addEventListener('click', () => {playRPS('rock',computerPlay())});
 buttonPaper.addEventListener('click', () => {playRPS('paper',computerPlay())});
 buttonScissors.addEventListener('click', () => {playRPS('scissors',computerPlay())});
 
+//Create Score Elements
+const gameOutcomeText = document.createElement('div');
+const scoreTracker = document.createElement('div');
+const matchOutcomeText = document.createElement('div');
 
+// const playerScore = document.createElement('div');
+// const computerScore = document.createElement('div');
+const scoreboardContainer = document.getElementById('scoreboard-container1');
+const scoreBoardDiv = document.createElement('div');
+const gameResult = document.createElement('div');
+
+scoreBoardDiv.classname = 'scoreboard';
+gameResult.classname = 'game-result';
+scoreboardContainer.append(gameResult);
+scoreboardContainer.append(scoreBoardDiv);
+
+
+
+let playerScore = 0;
+let computerScore = 0;
 
 //Function to create random choice for the computer
 function computerPlay() {
@@ -58,19 +77,45 @@ function playRPS(playerSelection, computerSelection){
     if (winner === 'Choose Rock, Paper, or Scissors'){
         return 'Try again. Choose Rock, Paper, or Scissors'
     }
-
-   //Logs variables for testing purposes
-    console.log('User Choice = ' + playerSelection);
-    console.log('Computer Choice = ' + computerSelection);
-    console.log('Winner = ' + winner); 
+    //Logs variables for testing purposes
+    // console.log('User Choice = ' + playerSelection);
+    // console.log('Computer Choice = ' + computerSelection);
+    // console.log('Winner = ' + winner); 
     if (winner === 'tie'){
-        return 'Tie game.'
+        gameOutcomeText.textContent = 'Tie game.'
     } else if (winner == 'p1'){
-        return "Congrats, you win. " + playerSelection + " beats " + computerSelection + "."
+        playerScore++;
+        gameOutcomeText.textContent = `Congrats, you win this round. ${playerSelection}
+            beats ${computerSelection}.`;        
+    } else {
+        computerScore++
+        gameOutcomeText.textContent = `You lose this round. ${computerSelection}
+        beats ${playerSelection}.`;
     }
-    return "You lose. " + computerSelection + " beats " + playerSelection + "."
+    scoreTracker.textContent = `Player Score: ${playerScore} Computer Score: ${computerScore}.`;
+    gameResult.appendChild(gameOutcomeText);
+    scoreBoardDiv.appendChild(scoreTracker);
+
+    if (playerScore == 5 || computerScore == 5) {
+        if (playerScore > computerScore){
+        matchOutcomeText.textContent = `You win the match!`;
+        scoreboardContainer.append(matchOutcomeText);
+        } else {
+        matchOutcomeText.textContent = `The computer wins the match`;
+        scoreboardContainer.append(matchOutcomeText);
+    }
 }
 
+
+    //scoreBoard.append(playerScore);
+    //scoreBoard.append(computerScore);
+
+    }
+
+
+
+//NOT BEING USED with UI    
+/*
 //Function that plays 5 rounds of RPS and determines the winner
 function game(){
     let playerScore = 0, computerScore = 0;
@@ -96,3 +141,4 @@ function game(){
     }
     return "Computer wins."
 }
+*/
